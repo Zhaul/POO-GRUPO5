@@ -1,4 +1,4 @@
-package pe.edu.utp.view;
+package pe.edu.utp.views;
 
 import java.util.Stack;
 

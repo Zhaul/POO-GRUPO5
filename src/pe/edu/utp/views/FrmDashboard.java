@@ -1,4 +1,4 @@
-package pe.edu.utp.view;
+package pe.edu.utp.views;
 
 public class FrmDashboard extends javax.swing.JFrame {
 

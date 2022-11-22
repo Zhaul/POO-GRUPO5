@@ -1,5 +1,5 @@
 
-package pe.edu.utp.view;
+package pe.edu.utp.views;
 
 public class FrmSplash extends javax.swing.JFrame {
 
