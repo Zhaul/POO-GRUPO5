@@ -1,5 +1,5 @@
 
-package Formularios;
+package pe.edu.utp.view;
 
 public class FrmSplash extends javax.swing.JFrame {
 

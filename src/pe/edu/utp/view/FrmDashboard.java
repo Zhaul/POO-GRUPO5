@@ -1,4 +1,4 @@
-package Formularios;
+package pe.edu.utp.view;
 
 public class FrmDashboard extends javax.swing.JFrame {
 
