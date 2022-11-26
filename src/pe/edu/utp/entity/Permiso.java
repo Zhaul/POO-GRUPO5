@@ -7,18 +7,15 @@ package pe.edu.utp.entity;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,51 +23,53 @@ import javax.persistence.Table;
  * @author zhaulvaldera
  */
 @Entity
-@Table(name = "cargosPersonal")
+@Table(name = "permisos")
 @NamedQueries({
-    @NamedQuery(name = "CargosPersonal.findAll", query = "SELECT c FROM CargosPersonal c"),
-    @NamedQuery(name = "CargosPersonal.findById", query = "SELECT c FROM CargosPersonal c WHERE c.id = :id"),
-    @NamedQuery(name = "CargosPersonal.findByName", query = "SELECT c FROM CargosPersonal c WHERE c.name = :name"),
-    @NamedQuery(name = "CargosPersonal.findByStatus", query = "SELECT c FROM CargosPersonal c WHERE c.status = :status")})
-public class CargosPersonal implements Serializable {
+    @NamedQuery(name = "Permisos.findAll", query = "SELECT p FROM Permisos p"),
+    @NamedQuery(name = "Permisos.findById", query = "SELECT p FROM Permisos p WHERE p.id = :id"),
+    @NamedQuery(name = "Permisos.findByName", query = "SELECT p FROM Permisos p WHERE p.name = :name"),
+    @NamedQuery(name = "Permisos.findByPosition", query = "SELECT p FROM Permisos p WHERE p.position = :position"),
+    @NamedQuery(name = "Permisos.findByStatus", query = "SELECT p FROM Permisos p WHERE p.status = :status")})
+public class Permiso implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id")
-    private Integer id;
+    private String id;
     @Basic(optional = false)
     @Column(name = "name")
     private String name;
+    @Column(name = "position")
+    private Integer position;
     @Lob
     @Column(name = "description")
     private String description;
     @Column(name = "status")
     private Character status;
-    @JoinColumn(name = "idArea", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Areas idArea;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCargo")
-    private List<Employees> employeesList;
+    @JoinTable(name = "permisoRol", joinColumns = {
+        @JoinColumn(name = "idPermiso", referencedColumnName = "id")}, inverseJoinColumns = {
+        @JoinColumn(name = "idRol", referencedColumnName = "id")})
+    @ManyToMany
+    private List<Rol> rolesList;
 
-    public CargosPersonal() {
+    public Permiso() {
     }
 
-    public CargosPersonal(Integer id) {
+    public Permiso(String id) {
         this.id = id;
     }
 
-    public CargosPersonal(Integer id, String name) {
+    public Permiso(String id, String name) {
         this.id = id;
         this.name = name;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -80,6 +79,14 @@ public class CargosPersonal implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Integer getPosition() {
+        return position;
+    }
+
+    public void setPosition(Integer position) {
+        this.position = position;
     }
 
     public String getDescription() {
@@ -98,20 +105,12 @@ public class CargosPersonal implements Serializable {
         this.status = status;
     }
 
-    public Areas getIdArea() {
-        return idArea;
+    public List<Rol> getRolesList() {
+        return rolesList;
     }
 
-    public void setIdArea(Areas idArea) {
-        this.idArea = idArea;
-    }
-
-    public List<Employees> getEmployeesList() {
-        return employeesList;
-    }
-
-    public void setEmployeesList(List<Employees> employeesList) {
-        this.employeesList = employeesList;
+    public void setRolesList(List<Rol> rolesList) {
+        this.rolesList = rolesList;
     }
 
     @Override
@@ -124,10 +123,10 @@ public class CargosPersonal implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof CargosPersonal)) {
+        if (!(object instanceof Permiso)) {
             return false;
         }
-        CargosPersonal other = (CargosPersonal) object;
+        Permiso other = (Permiso) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -136,7 +135,7 @@ public class CargosPersonal implements Serializable {
 
     @Override
     public String toString() {
-        return "pe.edu.utp.entity.CargosPersonal[ id=" + id + " ]";
+        return "pe.edu.utp.entity.Permisos[ id=" + id + " ]";
     }
     
 }

@@ -30,7 +30,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Areas.findById", query = "SELECT a FROM Areas a WHERE a.id = :id"),
     @NamedQuery(name = "Areas.findByName", query = "SELECT a FROM Areas a WHERE a.name = :name"),
     @NamedQuery(name = "Areas.findByStatus", query = "SELECT a FROM Areas a WHERE a.status = :status")})
-public class Areas implements Serializable {
+public class Area implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -48,16 +48,16 @@ public class Areas implements Serializable {
     @Column(name = "status")
     private Character status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idArea")
-    private List<CargosPersonal> cargosPersonalList;
+    private List<CargoPersonal> cargosPersonalList;
 
-    public Areas() {
+    public Area() {
     }
 
-    public Areas(Integer id) {
+    public Area(Integer id) {
         this.id = id;
     }
 
-    public Areas(Integer id, String name, Character status) {
+    public Area(Integer id, String name, Character status) {
         this.id = id;
         this.name = name;
         this.status = status;
@@ -95,11 +95,11 @@ public class Areas implements Serializable {
         this.status = status;
     }
 
-    public List<CargosPersonal> getCargosPersonalList() {
+    public List<CargoPersonal> getCargosPersonalList() {
         return cargosPersonalList;
     }
 
-    public void setCargosPersonalList(List<CargosPersonal> cargosPersonalList) {
+    public void setCargosPersonalList(List<CargoPersonal> cargosPersonalList) {
         this.cargosPersonalList = cargosPersonalList;
     }
 
@@ -113,10 +113,10 @@ public class Areas implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Areas)) {
+        if (!(object instanceof Area)) {
             return false;
         }
-        Areas other = (Areas) object;
+        Area other = (Area) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

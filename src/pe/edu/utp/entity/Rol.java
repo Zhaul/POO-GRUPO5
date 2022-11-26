@@ -30,7 +30,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "Roles.findById", query = "SELECT r FROM Roles r WHERE r.id = :id"),
     @NamedQuery(name = "Roles.findByName", query = "SELECT r FROM Roles r WHERE r.name = :name"),
     @NamedQuery(name = "Roles.findByStatus", query = "SELECT r FROM Roles r WHERE r.status = :status")})
-public class Roles implements Serializable {
+public class Rol implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -44,18 +44,18 @@ public class Roles implements Serializable {
     @Column(name = "status")
     private Character status;
     @ManyToMany(mappedBy = "rolesList")
-    private List<Permisos> permisosList;
+    private List<Permiso> permisosList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRol")
-    private List<Employees> employeesList;
+    private List<Employe> employeesList;
 
-    public Roles() {
+    public Rol() {
     }
 
-    public Roles(Integer id) {
+    public Rol(Integer id) {
         this.id = id;
     }
 
-    public Roles(Integer id, String name) {
+    public Rol(Integer id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -84,19 +84,19 @@ public class Roles implements Serializable {
         this.status = status;
     }
 
-    public List<Permisos> getPermisosList() {
+    public List<Permiso> getPermisosList() {
         return permisosList;
     }
 
-    public void setPermisosList(List<Permisos> permisosList) {
+    public void setPermisosList(List<Permiso> permisosList) {
         this.permisosList = permisosList;
     }
 
-    public List<Employees> getEmployeesList() {
+    public List<Employe> getEmployeesList() {
         return employeesList;
     }
 
-    public void setEmployeesList(List<Employees> employeesList) {
+    public void setEmployeesList(List<Employe> employeesList) {
         this.employeesList = employeesList;
     }
 
@@ -110,10 +110,10 @@ public class Roles implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Roles)) {
+        if (!(object instanceof Rol)) {
             return false;
         }
-        Roles other = (Roles) object;
+        Rol other = (Rol) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

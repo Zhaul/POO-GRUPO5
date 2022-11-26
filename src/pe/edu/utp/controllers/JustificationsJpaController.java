@@ -14,8 +14,8 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import pe.edu.utp.controllers.exceptions.NonexistentEntityException;
-import pe.edu.utp.entity.Justifications;
-import pe.edu.utp.entity.Schedules;
+import pe.edu.utp.entity.Justification;
+import pe.edu.utp.entity.Schedule;
 
 /**
  *
@@ -35,12 +35,12 @@ public class JustificationsJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Justifications justifications) {
+    public void create(Justification justifications) {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Schedules idShedule = justifications.getIdShedule();
+            Schedule idShedule = justifications.getIdShedule();
             if (idShedule != null) {
                 idShedule = em.getReference(idShedule.getClass(), idShedule.getId());
                 justifications.setIdShedule(idShedule);
@@ -58,14 +58,14 @@ public class JustificationsJpaController implements Serializable {
         }
     }
 
-    public void edit(Justifications justifications) throws NonexistentEntityException, Exception {
+    public void edit(Justification justifications) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Justifications persistentJustifications = em.find(Justifications.class, justifications.getId());
-            Schedules idSheduleOld = persistentJustifications.getIdShedule();
-            Schedules idSheduleNew = justifications.getIdShedule();
+            Justification persistentJustifications = em.find(Justification.class, justifications.getId());
+            Schedule idSheduleOld = persistentJustifications.getIdShedule();
+            Schedule idSheduleNew = justifications.getIdShedule();
             if (idSheduleNew != null) {
                 idSheduleNew = em.getReference(idSheduleNew.getClass(), idSheduleNew.getId());
                 justifications.setIdShedule(idSheduleNew);
@@ -101,14 +101,14 @@ public class JustificationsJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Justifications justifications;
+            Justification justifications;
             try {
-                justifications = em.getReference(Justifications.class, id);
+                justifications = em.getReference(Justification.class, id);
                 justifications.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The justifications with id " + id + " no longer exists.", enfe);
             }
-            Schedules idShedule = justifications.getIdShedule();
+            Schedule idShedule = justifications.getIdShedule();
             if (idShedule != null) {
                 idShedule.getJustificationsList().remove(justifications);
                 idShedule = em.merge(idShedule);
@@ -122,19 +122,19 @@ public class JustificationsJpaController implements Serializable {
         }
     }
 
-    public List<Justifications> findJustificationsEntities() {
+    public List<Justification> findJustificationsEntities() {
         return findJustificationsEntities(true, -1, -1);
     }
 
-    public List<Justifications> findJustificationsEntities(int maxResults, int firstResult) {
+    public List<Justification> findJustificationsEntities(int maxResults, int firstResult) {
         return findJustificationsEntities(false, maxResults, firstResult);
     }
 
-    private List<Justifications> findJustificationsEntities(boolean all, int maxResults, int firstResult) {
+    private List<Justification> findJustificationsEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Justifications.class));
+            cq.select(cq.from(Justification.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -146,10 +146,10 @@ public class JustificationsJpaController implements Serializable {
         }
     }
 
-    public Justifications findJustifications(Integer id) {
+    public Justification findJustifications(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Justifications.class, id);
+            return em.find(Justification.class, id);
         } finally {
             em.close();
         }
@@ -159,7 +159,7 @@ public class JustificationsJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Justifications> rt = cq.from(Justifications.class);
+            Root<Justification> rt = cq.from(Justification.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

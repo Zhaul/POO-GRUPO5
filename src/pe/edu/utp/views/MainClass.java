@@ -1,8 +1,6 @@
 
 package pe.edu.utp.views;
 
-import java.awt.Color;
-
 public class MainClass {
     public static void main(String[] args) {
         FrmSplash frmSplash = new FrmSplash();

@@ -9,9 +9,9 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import pe.edu.utp.entity.CargosPersonal;
-import pe.edu.utp.entity.Roles;
-import pe.edu.utp.entity.Schedules;
+import pe.edu.utp.entity.CargoPersonal;
+import pe.edu.utp.entity.Rol;
+import pe.edu.utp.entity.Schedule;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -19,7 +19,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import pe.edu.utp.controllers.exceptions.IllegalOrphanException;
 import pe.edu.utp.controllers.exceptions.NonexistentEntityException;
-import pe.edu.utp.entity.Employees;
+import pe.edu.utp.entity.Employe;
 
 /**
  *
@@ -39,26 +39,26 @@ public class EmployeesJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Employees employees) {
+    public void create(Employe employees) {
         if (employees.getSchedulesList() == null) {
-            employees.setSchedulesList(new ArrayList<Schedules>());
+            employees.setSchedulesList(new ArrayList<Schedule>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            CargosPersonal idCargo = employees.getIdCargo();
+            CargoPersonal idCargo = employees.getIdCargo();
             if (idCargo != null) {
                 idCargo = em.getReference(idCargo.getClass(), idCargo.getId());
                 employees.setIdCargo(idCargo);
             }
-            Roles idRol = employees.getIdRol();
+            Rol idRol = employees.getIdRol();
             if (idRol != null) {
                 idRol = em.getReference(idRol.getClass(), idRol.getId());
                 employees.setIdRol(idRol);
             }
-            List<Schedules> attachedSchedulesList = new ArrayList<Schedules>();
-            for (Schedules schedulesListSchedulesToAttach : employees.getSchedulesList()) {
+            List<Schedule> attachedSchedulesList = new ArrayList<Schedule>();
+            for (Schedule schedulesListSchedulesToAttach : employees.getSchedulesList()) {
                 schedulesListSchedulesToAttach = em.getReference(schedulesListSchedulesToAttach.getClass(), schedulesListSchedulesToAttach.getId());
                 attachedSchedulesList.add(schedulesListSchedulesToAttach);
             }
@@ -72,8 +72,8 @@ public class EmployeesJpaController implements Serializable {
                 idRol.getEmployeesList().add(employees);
                 idRol = em.merge(idRol);
             }
-            for (Schedules schedulesListSchedules : employees.getSchedulesList()) {
-                Employees oldIdEmployeOfSchedulesListSchedules = schedulesListSchedules.getIdEmploye();
+            for (Schedule schedulesListSchedules : employees.getSchedulesList()) {
+                Employe oldIdEmployeOfSchedulesListSchedules = schedulesListSchedules.getIdEmploye();
                 schedulesListSchedules.setIdEmploye(employees);
                 schedulesListSchedules = em.merge(schedulesListSchedules);
                 if (oldIdEmployeOfSchedulesListSchedules != null) {
@@ -89,20 +89,20 @@ public class EmployeesJpaController implements Serializable {
         }
     }
 
-    public void edit(Employees employees) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Employe employees) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Employees persistentEmployees = em.find(Employees.class, employees.getId());
-            CargosPersonal idCargoOld = persistentEmployees.getIdCargo();
-            CargosPersonal idCargoNew = employees.getIdCargo();
-            Roles idRolOld = persistentEmployees.getIdRol();
-            Roles idRolNew = employees.getIdRol();
-            List<Schedules> schedulesListOld = persistentEmployees.getSchedulesList();
-            List<Schedules> schedulesListNew = employees.getSchedulesList();
+            Employe persistentEmployees = em.find(Employe.class, employees.getId());
+            CargoPersonal idCargoOld = persistentEmployees.getIdCargo();
+            CargoPersonal idCargoNew = employees.getIdCargo();
+            Rol idRolOld = persistentEmployees.getIdRol();
+            Rol idRolNew = employees.getIdRol();
+            List<Schedule> schedulesListOld = persistentEmployees.getSchedulesList();
+            List<Schedule> schedulesListNew = employees.getSchedulesList();
             List<String> illegalOrphanMessages = null;
-            for (Schedules schedulesListOldSchedules : schedulesListOld) {
+            for (Schedule schedulesListOldSchedules : schedulesListOld) {
                 if (!schedulesListNew.contains(schedulesListOldSchedules)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
@@ -121,8 +121,8 @@ public class EmployeesJpaController implements Serializable {
                 idRolNew = em.getReference(idRolNew.getClass(), idRolNew.getId());
                 employees.setIdRol(idRolNew);
             }
-            List<Schedules> attachedSchedulesListNew = new ArrayList<Schedules>();
-            for (Schedules schedulesListNewSchedulesToAttach : schedulesListNew) {
+            List<Schedule> attachedSchedulesListNew = new ArrayList<Schedule>();
+            for (Schedule schedulesListNewSchedulesToAttach : schedulesListNew) {
                 schedulesListNewSchedulesToAttach = em.getReference(schedulesListNewSchedulesToAttach.getClass(), schedulesListNewSchedulesToAttach.getId());
                 attachedSchedulesListNew.add(schedulesListNewSchedulesToAttach);
             }
@@ -145,9 +145,9 @@ public class EmployeesJpaController implements Serializable {
                 idRolNew.getEmployeesList().add(employees);
                 idRolNew = em.merge(idRolNew);
             }
-            for (Schedules schedulesListNewSchedules : schedulesListNew) {
+            for (Schedule schedulesListNewSchedules : schedulesListNew) {
                 if (!schedulesListOld.contains(schedulesListNewSchedules)) {
-                    Employees oldIdEmployeOfSchedulesListNewSchedules = schedulesListNewSchedules.getIdEmploye();
+                    Employe oldIdEmployeOfSchedulesListNewSchedules = schedulesListNewSchedules.getIdEmploye();
                     schedulesListNewSchedules.setIdEmploye(employees);
                     schedulesListNewSchedules = em.merge(schedulesListNewSchedules);
                     if (oldIdEmployeOfSchedulesListNewSchedules != null && !oldIdEmployeOfSchedulesListNewSchedules.equals(employees)) {
@@ -178,16 +178,16 @@ public class EmployeesJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Employees employees;
+            Employe employees;
             try {
-                employees = em.getReference(Employees.class, id);
+                employees = em.getReference(Employe.class, id);
                 employees.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The employees with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            List<Schedules> schedulesListOrphanCheck = employees.getSchedulesList();
-            for (Schedules schedulesListOrphanCheckSchedules : schedulesListOrphanCheck) {
+            List<Schedule> schedulesListOrphanCheck = employees.getSchedulesList();
+            for (Schedule schedulesListOrphanCheckSchedules : schedulesListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
@@ -196,12 +196,12 @@ public class EmployeesJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            CargosPersonal idCargo = employees.getIdCargo();
+            CargoPersonal idCargo = employees.getIdCargo();
             if (idCargo != null) {
                 idCargo.getEmployeesList().remove(employees);
                 idCargo = em.merge(idCargo);
             }
-            Roles idRol = employees.getIdRol();
+            Rol idRol = employees.getIdRol();
             if (idRol != null) {
                 idRol.getEmployeesList().remove(employees);
                 idRol = em.merge(idRol);
@@ -215,19 +215,19 @@ public class EmployeesJpaController implements Serializable {
         }
     }
 
-    public List<Employees> findEmployeesEntities() {
+    public List<Employe> findEmployeesEntities() {
         return findEmployeesEntities(true, -1, -1);
     }
 
-    public List<Employees> findEmployeesEntities(int maxResults, int firstResult) {
+    public List<Employe> findEmployeesEntities(int maxResults, int firstResult) {
         return findEmployeesEntities(false, maxResults, firstResult);
     }
 
-    private List<Employees> findEmployeesEntities(boolean all, int maxResults, int firstResult) {
+    private List<Employe> findEmployeesEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Employees.class));
+            cq.select(cq.from(Employe.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -239,10 +239,10 @@ public class EmployeesJpaController implements Serializable {
         }
     }
 
-    public Employees findEmployees(Integer id) {
+    public Employe findEmployees(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Employees.class, id);
+            return em.find(Employe.class, id);
         } finally {
             em.close();
         }
@@ -252,7 +252,7 @@ public class EmployeesJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Employees> rt = cq.from(Employees.class);
+            Root<Employe> rt = cq.from(Employe.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

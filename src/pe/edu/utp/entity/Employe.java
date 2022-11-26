@@ -47,7 +47,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Employees.findByFlagAccess", query = "SELECT e FROM Employees e WHERE e.flagAccess = :flagAccess"),
     @NamedQuery(name = "Employees.findByCodeEmployee", query = "SELECT e FROM Employees e WHERE e.codeEmployee = :codeEmployee"),
     @NamedQuery(name = "Employees.findByUser", query = "SELECT e FROM Employees e WHERE e.user = :user")})
-public class Employees implements Serializable {
+public class Employe implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -95,22 +95,22 @@ public class Employees implements Serializable {
     @Column(name = "user")
     private String user;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEmploye")
-    private List<Schedules> schedulesList;
+    private List<Schedule> schedulesList;
     @JoinColumn(name = "idCargo", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private CargosPersonal idCargo;
+    private CargoPersonal idCargo;
     @JoinColumn(name = "idRol", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Roles idRol;
+    private Rol idRol;
 
-    public Employees() {
+    public Employe() {
     }
 
-    public Employees(Integer id) {
+    public Employe(Integer id) {
         this.id = id;
     }
 
-    public Employees(Integer id, String names, String lastNames, String typeDocument, String numberDocument, Character status, Character sex, String codeEmployee) {
+    public Employe(Integer id, String names, String lastNames, String typeDocument, String numberDocument, Character status, Character sex, String codeEmployee) {
         this.id = id;
         this.names = names;
         this.lastNames = lastNames;
@@ -249,27 +249,27 @@ public class Employees implements Serializable {
         this.user = user;
     }
 
-    public List<Schedules> getSchedulesList() {
+    public List<Schedule> getSchedulesList() {
         return schedulesList;
     }
 
-    public void setSchedulesList(List<Schedules> schedulesList) {
+    public void setSchedulesList(List<Schedule> schedulesList) {
         this.schedulesList = schedulesList;
     }
 
-    public CargosPersonal getIdCargo() {
+    public CargoPersonal getIdCargo() {
         return idCargo;
     }
 
-    public void setIdCargo(CargosPersonal idCargo) {
+    public void setIdCargo(CargoPersonal idCargo) {
         this.idCargo = idCargo;
     }
 
-    public Roles getIdRol() {
+    public Rol getIdRol() {
         return idRol;
     }
 
-    public void setIdRol(Roles idRol) {
+    public void setIdRol(Rol idRol) {
         this.idRol = idRol;
     }
 
@@ -283,10 +283,10 @@ public class Employees implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Employees)) {
+        if (!(object instanceof Employe)) {
             return false;
         }
-        Employees other = (Employees) object;
+        Employe other = (Employe) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

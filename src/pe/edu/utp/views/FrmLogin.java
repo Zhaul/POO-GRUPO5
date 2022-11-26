@@ -48,10 +48,10 @@ public class FrmLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Inicio de Sesión");
 
-        jlbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/usuario.png"))); // NOI18N
+        jlbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/usuario.png"))); // NOI18N
 
         jbNumer3.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/9.png"))); // NOI18N
+        jbNumer3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/9.png"))); // NOI18N
         jbNumer3.setBorder(null);
         jbNumer3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -63,7 +63,7 @@ public class FrmLogin extends javax.swing.JFrame {
         txtUserPass.setEnabled(false);
 
         jbNumer1.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/7.png"))); // NOI18N
+        jbNumer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/7.png"))); // NOI18N
         jbNumer1.setBorder(null);
         jbNumer1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -72,7 +72,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         jbNumer2.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/8.png"))); // NOI18N
+        jbNumer2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/8.png"))); // NOI18N
         jbNumer2.setBorder(null);
         jbNumer2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,7 +81,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         jbNumer6.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/6.png"))); // NOI18N
+        jbNumer6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/6.png"))); // NOI18N
         jbNumer6.setBorder(null);
         jbNumer6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,7 +90,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         jbNumer4.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/4.png"))); // NOI18N
+        jbNumer4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/4.png"))); // NOI18N
         jbNumer4.setBorder(null);
         jbNumer4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -99,7 +99,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         jbNumer5.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/5.png"))); // NOI18N
+        jbNumer5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/5.png"))); // NOI18N
         jbNumer5.setBorder(null);
         jbNumer5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,7 +108,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         jbNumer9.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/3.png"))); // NOI18N
+        jbNumer9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/3.png"))); // NOI18N
         jbNumer9.setBorder(null);
         jbNumer9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,7 +117,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         jbNumer7.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/1.png"))); // NOI18N
+        jbNumer7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/1.png"))); // NOI18N
         jbNumer7.setBorder(null);
         jbNumer7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,7 +126,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         jbNumer8.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/2.png"))); // NOI18N
+        jbNumer8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/2.png"))); // NOI18N
         jbNumer8.setBorder(null);
         jbNumer8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -135,7 +135,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         jbCheck.setBackground(new java.awt.Color(242, 242, 242));
-        jbCheck.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/ingresar.png"))); // NOI18N
+        jbCheck.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/ingresar.png"))); // NOI18N
         jbCheck.setBorder(null);
         jbCheck.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,7 +144,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         jbClear.setBackground(new java.awt.Color(242, 242, 242));
-        jbClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/borrar.png"))); // NOI18N
+        jbClear.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/borrar.png"))); // NOI18N
         jbClear.setBorder(null);
         jbClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -153,7 +153,7 @@ public class FrmLogin extends javax.swing.JFrame {
         });
 
         jbNumer10.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/0.png"))); // NOI18N
+        jbNumer10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/0.png"))); // NOI18N
         jbNumer10.setBorder(null);
         jbNumer10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -281,7 +281,7 @@ public class FrmLogin extends javax.swing.JFrame {
         user = txtUserPass.getText();
         aleatorio();
         txtUserPass.setText("");
-        jlbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/bloquear.png"))); 
+        jlbIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/bloquear.png"))); 
         jlbUserPass.setText("PASSWORD");
     }//GEN-LAST:event_jbCheckActionPerformed
 
@@ -305,43 +305,43 @@ public class FrmLogin extends javax.swing.JFrame {
         }
         
         jbNumer1.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/" + pNumbers.get(0) + ".png"))); // NOI18N
+        jbNumer1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/" + pNumbers.get(0) + ".png"))); // NOI18N
         jbNumer1.setBorder(null);
         
         jbNumer2.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/" + pNumbers.get(1) + ".png"))); // NOI18N
+        jbNumer2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/" + pNumbers.get(1) + ".png"))); // NOI18N
         jbNumer2.setBorder(null);
         
         jbNumer3.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/" + pNumbers.get(2) + ".png"))); // NOI18N
+        jbNumer3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/" + pNumbers.get(2) + ".png"))); // NOI18N
         jbNumer3.setBorder(null);
         
         jbNumer4.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/" + pNumbers.get(3) + ".png"))); // NOI18N
+        jbNumer4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/" + pNumbers.get(3) + ".png"))); // NOI18N
         jbNumer4.setBorder(null);
         
         jbNumer5.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/" + pNumbers.get(4) + ".png"))); // NOI18N
+        jbNumer5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/" + pNumbers.get(4) + ".png"))); // NOI18N
         jbNumer5.setBorder(null);
         
         jbNumer6.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/" + pNumbers.get(5) + ".png"))); // NOI18N
+        jbNumer6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/" + pNumbers.get(5) + ".png"))); // NOI18N
         jbNumer6.setBorder(null);
         
         jbNumer7.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/" + pNumbers.get(6) + ".png"))); // NOI18N
+        jbNumer7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/" + pNumbers.get(6) + ".png"))); // NOI18N
         jbNumer7.setBorder(null);
         
         jbNumer8.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/" + pNumbers.get(7) + ".png"))); // NOI18N
+        jbNumer8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/" + pNumbers.get(7) + ".png"))); // NOI18N
         jbNumer8.setBorder(null);
         
         jbNumer9.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/" + pNumbers.get(8) + ".png"))); // NOI18N
+        jbNumer9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/" + pNumbers.get(8) + ".png"))); // NOI18N
         jbNumer9.setBorder(null);
         
         jbNumer10.setBackground(new java.awt.Color(242, 242, 242));
-        jbNumer10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/" + pNumbers.get(9) + ".png"))); // NOI18N
+        jbNumer10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/" + pNumbers.get(9) + ".png"))); // NOI18N
         jbNumer10.setBorder(null);
 
     }

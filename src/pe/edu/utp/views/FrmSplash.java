@@ -30,7 +30,7 @@ public class FrmSplash extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Mali", 1, 36)); // NOI18N
         jLabel1.setText("Sistema de Asistencia");
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/logoutp.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/pe/edu/utp/images/logoutp.png"))); // NOI18N
 
         jLabel3.setFont(new java.awt.Font("Mali", 1, 36)); // NOI18N
         jLabel3.setText("POO - Grupo 5");

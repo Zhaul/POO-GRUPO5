@@ -36,7 +36,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Schedules.findByDateStart", query = "SELECT s FROM Schedules s WHERE s.dateStart = :dateStart"),
     @NamedQuery(name = "Schedules.findByHourEntry", query = "SELECT s FROM Schedules s WHERE s.hourEntry = :hourEntry"),
     @NamedQuery(name = "Schedules.findByStatus", query = "SELECT s FROM Schedules s WHERE s.status = :status")})
-public class Schedules implements Serializable {
+public class Schedule implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -56,15 +56,15 @@ public class Schedules implements Serializable {
     @Column(name = "status")
     private Character status;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idShedule")
-    private List<Justifications> justificationsList;
+    private List<Justification> justificationsList;
     @JoinColumn(name = "idEmploye", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Employees idEmploye;
+    private Employe idEmploye;
 
-    public Schedules() {
+    public Schedule() {
     }
 
-    public Schedules(Integer id) {
+    public Schedule(Integer id) {
         this.id = id;
     }
 
@@ -108,19 +108,19 @@ public class Schedules implements Serializable {
         this.status = status;
     }
 
-    public List<Justifications> getJustificationsList() {
+    public List<Justification> getJustificationsList() {
         return justificationsList;
     }
 
-    public void setJustificationsList(List<Justifications> justificationsList) {
+    public void setJustificationsList(List<Justification> justificationsList) {
         this.justificationsList = justificationsList;
     }
 
-    public Employees getIdEmploye() {
+    public Employe getIdEmploye() {
         return idEmploye;
     }
 
-    public void setIdEmploye(Employees idEmploye) {
+    public void setIdEmploye(Employe idEmploye) {
         this.idEmploye = idEmploye;
     }
 
@@ -134,10 +134,10 @@ public class Schedules implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Schedules)) {
+        if (!(object instanceof Schedule)) {
             return false;
         }
-        Schedules other = (Schedules) object;
+        Schedule other = (Schedule) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

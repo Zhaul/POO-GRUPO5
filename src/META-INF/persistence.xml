@@ -2,13 +2,13 @@
 <persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
   <persistence-unit name="ProyectoFinalPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>pe.edu.utp.entity.Schedules</class>
-    <class>pe.edu.utp.entity.Justifications</class>
-    <class>pe.edu.utp.entity.Permisos</class>
-    <class>pe.edu.utp.entity.CargosPersonal</class>
-    <class>pe.edu.utp.entity.Areas</class>
-    <class>pe.edu.utp.entity.Roles</class>
-    <class>pe.edu.utp.entity.Employees</class>
+    <class>pe.edu.utp.entity.Area</class>
+    <class>pe.edu.utp.entity.CargoPersonal</class>
+    <class>pe.edu.utp.entity.Employe</class>
+    <class>pe.edu.utp.entity.Justification</class>
+    <class>pe.edu.utp.entity.Permiso</class>
+    <class>pe.edu.utp.entity.Rol</class>
+    <class>pe.edu.utp.entity.Schedule</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/proyectofinal?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="proyectopoo"/>

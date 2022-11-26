@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import pe.edu.utp.entity.Permisos;
+import pe.edu.utp.entity.Permiso;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -17,8 +17,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import pe.edu.utp.controllers.exceptions.IllegalOrphanException;
 import pe.edu.utp.controllers.exceptions.NonexistentEntityException;
-import pe.edu.utp.entity.Employees;
-import pe.edu.utp.entity.Roles;
+import pe.edu.utp.entity.Employe;
+import pe.edu.utp.entity.Rol;
 
 /**
  *
@@ -38,36 +38,36 @@ public class RolesJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Roles roles) {
+    public void create(Rol roles) {
         if (roles.getPermisosList() == null) {
-            roles.setPermisosList(new ArrayList<Permisos>());
+            roles.setPermisosList(new ArrayList<Permiso>());
         }
         if (roles.getEmployeesList() == null) {
-            roles.setEmployeesList(new ArrayList<Employees>());
+            roles.setEmployeesList(new ArrayList<Employe>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Permisos> attachedPermisosList = new ArrayList<Permisos>();
-            for (Permisos permisosListPermisosToAttach : roles.getPermisosList()) {
+            List<Permiso> attachedPermisosList = new ArrayList<Permiso>();
+            for (Permiso permisosListPermisosToAttach : roles.getPermisosList()) {
                 permisosListPermisosToAttach = em.getReference(permisosListPermisosToAttach.getClass(), permisosListPermisosToAttach.getId());
                 attachedPermisosList.add(permisosListPermisosToAttach);
             }
             roles.setPermisosList(attachedPermisosList);
-            List<Employees> attachedEmployeesList = new ArrayList<Employees>();
-            for (Employees employeesListEmployeesToAttach : roles.getEmployeesList()) {
+            List<Employe> attachedEmployeesList = new ArrayList<Employe>();
+            for (Employe employeesListEmployeesToAttach : roles.getEmployeesList()) {
                 employeesListEmployeesToAttach = em.getReference(employeesListEmployeesToAttach.getClass(), employeesListEmployeesToAttach.getId());
                 attachedEmployeesList.add(employeesListEmployeesToAttach);
             }
             roles.setEmployeesList(attachedEmployeesList);
             em.persist(roles);
-            for (Permisos permisosListPermisos : roles.getPermisosList()) {
+            for (Permiso permisosListPermisos : roles.getPermisosList()) {
                 permisosListPermisos.getRolesList().add(roles);
                 permisosListPermisos = em.merge(permisosListPermisos);
             }
-            for (Employees employeesListEmployees : roles.getEmployeesList()) {
-                Roles oldIdRolOfEmployeesListEmployees = employeesListEmployees.getIdRol();
+            for (Employe employeesListEmployees : roles.getEmployeesList()) {
+                Rol oldIdRolOfEmployeesListEmployees = employeesListEmployees.getIdRol();
                 employeesListEmployees.setIdRol(roles);
                 employeesListEmployees = em.merge(employeesListEmployees);
                 if (oldIdRolOfEmployeesListEmployees != null) {
@@ -83,18 +83,18 @@ public class RolesJpaController implements Serializable {
         }
     }
 
-    public void edit(Roles roles) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Rol roles) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Roles persistentRoles = em.find(Roles.class, roles.getId());
-            List<Permisos> permisosListOld = persistentRoles.getPermisosList();
-            List<Permisos> permisosListNew = roles.getPermisosList();
-            List<Employees> employeesListOld = persistentRoles.getEmployeesList();
-            List<Employees> employeesListNew = roles.getEmployeesList();
+            Rol persistentRoles = em.find(Rol.class, roles.getId());
+            List<Permiso> permisosListOld = persistentRoles.getPermisosList();
+            List<Permiso> permisosListNew = roles.getPermisosList();
+            List<Employe> employeesListOld = persistentRoles.getEmployeesList();
+            List<Employe> employeesListNew = roles.getEmployeesList();
             List<String> illegalOrphanMessages = null;
-            for (Employees employeesListOldEmployees : employeesListOld) {
+            for (Employe employeesListOldEmployees : employeesListOld) {
                 if (!employeesListNew.contains(employeesListOldEmployees)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
@@ -105,36 +105,36 @@ public class RolesJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            List<Permisos> attachedPermisosListNew = new ArrayList<Permisos>();
-            for (Permisos permisosListNewPermisosToAttach : permisosListNew) {
+            List<Permiso> attachedPermisosListNew = new ArrayList<Permiso>();
+            for (Permiso permisosListNewPermisosToAttach : permisosListNew) {
                 permisosListNewPermisosToAttach = em.getReference(permisosListNewPermisosToAttach.getClass(), permisosListNewPermisosToAttach.getId());
                 attachedPermisosListNew.add(permisosListNewPermisosToAttach);
             }
             permisosListNew = attachedPermisosListNew;
             roles.setPermisosList(permisosListNew);
-            List<Employees> attachedEmployeesListNew = new ArrayList<Employees>();
-            for (Employees employeesListNewEmployeesToAttach : employeesListNew) {
+            List<Employe> attachedEmployeesListNew = new ArrayList<Employe>();
+            for (Employe employeesListNewEmployeesToAttach : employeesListNew) {
                 employeesListNewEmployeesToAttach = em.getReference(employeesListNewEmployeesToAttach.getClass(), employeesListNewEmployeesToAttach.getId());
                 attachedEmployeesListNew.add(employeesListNewEmployeesToAttach);
             }
             employeesListNew = attachedEmployeesListNew;
             roles.setEmployeesList(employeesListNew);
             roles = em.merge(roles);
-            for (Permisos permisosListOldPermisos : permisosListOld) {
+            for (Permiso permisosListOldPermisos : permisosListOld) {
                 if (!permisosListNew.contains(permisosListOldPermisos)) {
                     permisosListOldPermisos.getRolesList().remove(roles);
                     permisosListOldPermisos = em.merge(permisosListOldPermisos);
                 }
             }
-            for (Permisos permisosListNewPermisos : permisosListNew) {
+            for (Permiso permisosListNewPermisos : permisosListNew) {
                 if (!permisosListOld.contains(permisosListNewPermisos)) {
                     permisosListNewPermisos.getRolesList().add(roles);
                     permisosListNewPermisos = em.merge(permisosListNewPermisos);
                 }
             }
-            for (Employees employeesListNewEmployees : employeesListNew) {
+            for (Employe employeesListNewEmployees : employeesListNew) {
                 if (!employeesListOld.contains(employeesListNewEmployees)) {
-                    Roles oldIdRolOfEmployeesListNewEmployees = employeesListNewEmployees.getIdRol();
+                    Rol oldIdRolOfEmployeesListNewEmployees = employeesListNewEmployees.getIdRol();
                     employeesListNewEmployees.setIdRol(roles);
                     employeesListNewEmployees = em.merge(employeesListNewEmployees);
                     if (oldIdRolOfEmployeesListNewEmployees != null && !oldIdRolOfEmployeesListNewEmployees.equals(roles)) {
@@ -165,16 +165,16 @@ public class RolesJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Roles roles;
+            Rol roles;
             try {
-                roles = em.getReference(Roles.class, id);
+                roles = em.getReference(Rol.class, id);
                 roles.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The roles with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            List<Employees> employeesListOrphanCheck = roles.getEmployeesList();
-            for (Employees employeesListOrphanCheckEmployees : employeesListOrphanCheck) {
+            List<Employe> employeesListOrphanCheck = roles.getEmployeesList();
+            for (Employe employeesListOrphanCheckEmployees : employeesListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
@@ -183,8 +183,8 @@ public class RolesJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            List<Permisos> permisosList = roles.getPermisosList();
-            for (Permisos permisosListPermisos : permisosList) {
+            List<Permiso> permisosList = roles.getPermisosList();
+            for (Permiso permisosListPermisos : permisosList) {
                 permisosListPermisos.getRolesList().remove(roles);
                 permisosListPermisos = em.merge(permisosListPermisos);
             }
@@ -197,19 +197,19 @@ public class RolesJpaController implements Serializable {
         }
     }
 
-    public List<Roles> findRolesEntities() {
+    public List<Rol> findRolesEntities() {
         return findRolesEntities(true, -1, -1);
     }
 
-    public List<Roles> findRolesEntities(int maxResults, int firstResult) {
+    public List<Rol> findRolesEntities(int maxResults, int firstResult) {
         return findRolesEntities(false, maxResults, firstResult);
     }
 
-    private List<Roles> findRolesEntities(boolean all, int maxResults, int firstResult) {
+    private List<Rol> findRolesEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Roles.class));
+            cq.select(cq.from(Rol.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -221,10 +221,10 @@ public class RolesJpaController implements Serializable {
         }
     }
 
-    public Roles findRoles(Integer id) {
+    public Rol findRoles(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Roles.class, id);
+            return em.find(Rol.class, id);
         } finally {
             em.close();
         }
@@ -234,7 +234,7 @@ public class RolesJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Roles> rt = cq.from(Roles.class);
+            Root<Rol> rt = cq.from(Rol.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

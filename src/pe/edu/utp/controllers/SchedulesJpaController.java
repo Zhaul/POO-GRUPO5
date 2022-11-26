@@ -9,8 +9,8 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import pe.edu.utp.entity.Employees;
-import pe.edu.utp.entity.Justifications;
+import pe.edu.utp.entity.Employe;
+import pe.edu.utp.entity.Justification;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -18,7 +18,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import pe.edu.utp.controllers.exceptions.IllegalOrphanException;
 import pe.edu.utp.controllers.exceptions.NonexistentEntityException;
-import pe.edu.utp.entity.Schedules;
+import pe.edu.utp.entity.Schedule;
 
 /**
  *
@@ -38,21 +38,21 @@ public class SchedulesJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Schedules schedules) {
+    public void create(Schedule schedules) {
         if (schedules.getJustificationsList() == null) {
-            schedules.setJustificationsList(new ArrayList<Justifications>());
+            schedules.setJustificationsList(new ArrayList<Justification>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Employees idEmploye = schedules.getIdEmploye();
+            Employe idEmploye = schedules.getIdEmploye();
             if (idEmploye != null) {
                 idEmploye = em.getReference(idEmploye.getClass(), idEmploye.getId());
                 schedules.setIdEmploye(idEmploye);
             }
-            List<Justifications> attachedJustificationsList = new ArrayList<Justifications>();
-            for (Justifications justificationsListJustificationsToAttach : schedules.getJustificationsList()) {
+            List<Justification> attachedJustificationsList = new ArrayList<Justification>();
+            for (Justification justificationsListJustificationsToAttach : schedules.getJustificationsList()) {
                 justificationsListJustificationsToAttach = em.getReference(justificationsListJustificationsToAttach.getClass(), justificationsListJustificationsToAttach.getId());
                 attachedJustificationsList.add(justificationsListJustificationsToAttach);
             }
@@ -62,8 +62,8 @@ public class SchedulesJpaController implements Serializable {
                 idEmploye.getSchedulesList().add(schedules);
                 idEmploye = em.merge(idEmploye);
             }
-            for (Justifications justificationsListJustifications : schedules.getJustificationsList()) {
-                Schedules oldIdSheduleOfJustificationsListJustifications = justificationsListJustifications.getIdShedule();
+            for (Justification justificationsListJustifications : schedules.getJustificationsList()) {
+                Schedule oldIdSheduleOfJustificationsListJustifications = justificationsListJustifications.getIdShedule();
                 justificationsListJustifications.setIdShedule(schedules);
                 justificationsListJustifications = em.merge(justificationsListJustifications);
                 if (oldIdSheduleOfJustificationsListJustifications != null) {
@@ -79,18 +79,18 @@ public class SchedulesJpaController implements Serializable {
         }
     }
 
-    public void edit(Schedules schedules) throws IllegalOrphanException, NonexistentEntityException, Exception {
+    public void edit(Schedule schedules) throws IllegalOrphanException, NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Schedules persistentSchedules = em.find(Schedules.class, schedules.getId());
-            Employees idEmployeOld = persistentSchedules.getIdEmploye();
-            Employees idEmployeNew = schedules.getIdEmploye();
-            List<Justifications> justificationsListOld = persistentSchedules.getJustificationsList();
-            List<Justifications> justificationsListNew = schedules.getJustificationsList();
+            Schedule persistentSchedules = em.find(Schedule.class, schedules.getId());
+            Employe idEmployeOld = persistentSchedules.getIdEmploye();
+            Employe idEmployeNew = schedules.getIdEmploye();
+            List<Justification> justificationsListOld = persistentSchedules.getJustificationsList();
+            List<Justification> justificationsListNew = schedules.getJustificationsList();
             List<String> illegalOrphanMessages = null;
-            for (Justifications justificationsListOldJustifications : justificationsListOld) {
+            for (Justification justificationsListOldJustifications : justificationsListOld) {
                 if (!justificationsListNew.contains(justificationsListOldJustifications)) {
                     if (illegalOrphanMessages == null) {
                         illegalOrphanMessages = new ArrayList<String>();
@@ -105,8 +105,8 @@ public class SchedulesJpaController implements Serializable {
                 idEmployeNew = em.getReference(idEmployeNew.getClass(), idEmployeNew.getId());
                 schedules.setIdEmploye(idEmployeNew);
             }
-            List<Justifications> attachedJustificationsListNew = new ArrayList<Justifications>();
-            for (Justifications justificationsListNewJustificationsToAttach : justificationsListNew) {
+            List<Justification> attachedJustificationsListNew = new ArrayList<Justification>();
+            for (Justification justificationsListNewJustificationsToAttach : justificationsListNew) {
                 justificationsListNewJustificationsToAttach = em.getReference(justificationsListNewJustificationsToAttach.getClass(), justificationsListNewJustificationsToAttach.getId());
                 attachedJustificationsListNew.add(justificationsListNewJustificationsToAttach);
             }
@@ -121,9 +121,9 @@ public class SchedulesJpaController implements Serializable {
                 idEmployeNew.getSchedulesList().add(schedules);
                 idEmployeNew = em.merge(idEmployeNew);
             }
-            for (Justifications justificationsListNewJustifications : justificationsListNew) {
+            for (Justification justificationsListNewJustifications : justificationsListNew) {
                 if (!justificationsListOld.contains(justificationsListNewJustifications)) {
-                    Schedules oldIdSheduleOfJustificationsListNewJustifications = justificationsListNewJustifications.getIdShedule();
+                    Schedule oldIdSheduleOfJustificationsListNewJustifications = justificationsListNewJustifications.getIdShedule();
                     justificationsListNewJustifications.setIdShedule(schedules);
                     justificationsListNewJustifications = em.merge(justificationsListNewJustifications);
                     if (oldIdSheduleOfJustificationsListNewJustifications != null && !oldIdSheduleOfJustificationsListNewJustifications.equals(schedules)) {
@@ -154,16 +154,16 @@ public class SchedulesJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Schedules schedules;
+            Schedule schedules;
             try {
-                schedules = em.getReference(Schedules.class, id);
+                schedules = em.getReference(Schedule.class, id);
                 schedules.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The schedules with id " + id + " no longer exists.", enfe);
             }
             List<String> illegalOrphanMessages = null;
-            List<Justifications> justificationsListOrphanCheck = schedules.getJustificationsList();
-            for (Justifications justificationsListOrphanCheckJustifications : justificationsListOrphanCheck) {
+            List<Justification> justificationsListOrphanCheck = schedules.getJustificationsList();
+            for (Justification justificationsListOrphanCheckJustifications : justificationsListOrphanCheck) {
                 if (illegalOrphanMessages == null) {
                     illegalOrphanMessages = new ArrayList<String>();
                 }
@@ -172,7 +172,7 @@ public class SchedulesJpaController implements Serializable {
             if (illegalOrphanMessages != null) {
                 throw new IllegalOrphanException(illegalOrphanMessages);
             }
-            Employees idEmploye = schedules.getIdEmploye();
+            Employe idEmploye = schedules.getIdEmploye();
             if (idEmploye != null) {
                 idEmploye.getSchedulesList().remove(schedules);
                 idEmploye = em.merge(idEmploye);
@@ -186,19 +186,19 @@ public class SchedulesJpaController implements Serializable {
         }
     }
 
-    public List<Schedules> findSchedulesEntities() {
+    public List<Schedule> findSchedulesEntities() {
         return findSchedulesEntities(true, -1, -1);
     }
 
-    public List<Schedules> findSchedulesEntities(int maxResults, int firstResult) {
+    public List<Schedule> findSchedulesEntities(int maxResults, int firstResult) {
         return findSchedulesEntities(false, maxResults, firstResult);
     }
 
-    private List<Schedules> findSchedulesEntities(boolean all, int maxResults, int firstResult) {
+    private List<Schedule> findSchedulesEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Schedules.class));
+            cq.select(cq.from(Schedule.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -210,10 +210,10 @@ public class SchedulesJpaController implements Serializable {
         }
     }
 
-    public Schedules findSchedules(Integer id) {
+    public Schedule findSchedules(Integer id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Schedules.class, id);
+            return em.find(Schedule.class, id);
         } finally {
             em.close();
         }
@@ -223,7 +223,7 @@ public class SchedulesJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Schedules> rt = cq.from(Schedules.class);
+            Root<Schedule> rt = cq.from(Schedule.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();

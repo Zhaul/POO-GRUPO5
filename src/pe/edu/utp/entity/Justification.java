@@ -33,7 +33,7 @@ import javax.persistence.TemporalType;
     @NamedQuery(name = "Justifications.findByDate", query = "SELECT j FROM Justifications j WHERE j.date = :date"),
     @NamedQuery(name = "Justifications.findByFile", query = "SELECT j FROM Justifications j WHERE j.file = :file"),
     @NamedQuery(name = "Justifications.findByReason", query = "SELECT j FROM Justifications j WHERE j.reason = :reason")})
-public class Justifications implements Serializable {
+public class Justification implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -53,12 +53,12 @@ public class Justifications implements Serializable {
     private String description;
     @JoinColumn(name = "idShedule", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Schedules idShedule;
+    private Schedule idShedule;
 
-    public Justifications() {
+    public Justification() {
     }
 
-    public Justifications(Integer id) {
+    public Justification(Integer id) {
         this.id = id;
     }
 
@@ -102,11 +102,11 @@ public class Justifications implements Serializable {
         this.description = description;
     }
 
-    public Schedules getIdShedule() {
+    public Schedule getIdShedule() {
         return idShedule;
     }
 
-    public void setIdShedule(Schedules idShedule) {
+    public void setIdShedule(Schedule idShedule) {
         this.idShedule = idShedule;
     }
 
@@ -120,10 +120,10 @@ public class Justifications implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Justifications)) {
+        if (!(object instanceof Justification)) {
             return false;
         }
-        Justifications other = (Justifications) object;
+        Justification other = (Justification) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

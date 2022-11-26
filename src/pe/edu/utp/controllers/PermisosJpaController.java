@@ -9,7 +9,7 @@ import javax.persistence.Query;
 import javax.persistence.EntityNotFoundException;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import pe.edu.utp.entity.Roles;
+import pe.edu.utp.entity.Rol;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -17,7 +17,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import pe.edu.utp.controllers.exceptions.NonexistentEntityException;
 import pe.edu.utp.controllers.exceptions.PreexistingEntityException;
-import pe.edu.utp.entity.Permisos;
+import pe.edu.utp.entity.Permiso;
 
 /**
  *
@@ -37,22 +37,22 @@ public class PermisosJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Permisos permisos) throws PreexistingEntityException, Exception {
+    public void create(Permiso permisos) throws PreexistingEntityException, Exception {
         if (permisos.getRolesList() == null) {
-            permisos.setRolesList(new ArrayList<Roles>());
+            permisos.setRolesList(new ArrayList<Rol>());
         }
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            List<Roles> attachedRolesList = new ArrayList<Roles>();
-            for (Roles rolesListRolesToAttach : permisos.getRolesList()) {
+            List<Rol> attachedRolesList = new ArrayList<Rol>();
+            for (Rol rolesListRolesToAttach : permisos.getRolesList()) {
                 rolesListRolesToAttach = em.getReference(rolesListRolesToAttach.getClass(), rolesListRolesToAttach.getId());
                 attachedRolesList.add(rolesListRolesToAttach);
             }
             permisos.setRolesList(attachedRolesList);
             em.persist(permisos);
-            for (Roles rolesListRoles : permisos.getRolesList()) {
+            for (Rol rolesListRoles : permisos.getRolesList()) {
                 rolesListRoles.getPermisosList().add(permisos);
                 rolesListRoles = em.merge(rolesListRoles);
             }
@@ -69,29 +69,29 @@ public class PermisosJpaController implements Serializable {
         }
     }
 
-    public void edit(Permisos permisos) throws NonexistentEntityException, Exception {
+    public void edit(Permiso permisos) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Permisos persistentPermisos = em.find(Permisos.class, permisos.getId());
-            List<Roles> rolesListOld = persistentPermisos.getRolesList();
-            List<Roles> rolesListNew = permisos.getRolesList();
-            List<Roles> attachedRolesListNew = new ArrayList<Roles>();
-            for (Roles rolesListNewRolesToAttach : rolesListNew) {
+            Permiso persistentPermisos = em.find(Permiso.class, permisos.getId());
+            List<Rol> rolesListOld = persistentPermisos.getRolesList();
+            List<Rol> rolesListNew = permisos.getRolesList();
+            List<Rol> attachedRolesListNew = new ArrayList<Rol>();
+            for (Rol rolesListNewRolesToAttach : rolesListNew) {
                 rolesListNewRolesToAttach = em.getReference(rolesListNewRolesToAttach.getClass(), rolesListNewRolesToAttach.getId());
                 attachedRolesListNew.add(rolesListNewRolesToAttach);
             }
             rolesListNew = attachedRolesListNew;
             permisos.setRolesList(rolesListNew);
             permisos = em.merge(permisos);
-            for (Roles rolesListOldRoles : rolesListOld) {
+            for (Rol rolesListOldRoles : rolesListOld) {
                 if (!rolesListNew.contains(rolesListOldRoles)) {
                     rolesListOldRoles.getPermisosList().remove(permisos);
                     rolesListOldRoles = em.merge(rolesListOldRoles);
                 }
             }
-            for (Roles rolesListNewRoles : rolesListNew) {
+            for (Rol rolesListNewRoles : rolesListNew) {
                 if (!rolesListOld.contains(rolesListNewRoles)) {
                     rolesListNewRoles.getPermisosList().add(permisos);
                     rolesListNewRoles = em.merge(rolesListNewRoles);
@@ -119,15 +119,15 @@ public class PermisosJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
-            Permisos permisos;
+            Permiso permisos;
             try {
-                permisos = em.getReference(Permisos.class, id);
+                permisos = em.getReference(Permiso.class, id);
                 permisos.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The permisos with id " + id + " no longer exists.", enfe);
             }
-            List<Roles> rolesList = permisos.getRolesList();
-            for (Roles rolesListRoles : rolesList) {
+            List<Rol> rolesList = permisos.getRolesList();
+            for (Rol rolesListRoles : rolesList) {
                 rolesListRoles.getPermisosList().remove(permisos);
                 rolesListRoles = em.merge(rolesListRoles);
             }
@@ -140,19 +140,19 @@ public class PermisosJpaController implements Serializable {
         }
     }
 
-    public List<Permisos> findPermisosEntities() {
+    public List<Permiso> findPermisosEntities() {
         return findPermisosEntities(true, -1, -1);
     }
 
-    public List<Permisos> findPermisosEntities(int maxResults, int firstResult) {
+    public List<Permiso> findPermisosEntities(int maxResults, int firstResult) {
         return findPermisosEntities(false, maxResults, firstResult);
     }
 
-    private List<Permisos> findPermisosEntities(boolean all, int maxResults, int firstResult) {
+    private List<Permiso> findPermisosEntities(boolean all, int maxResults, int firstResult) {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            cq.select(cq.from(Permisos.class));
+            cq.select(cq.from(Permiso.class));
             Query q = em.createQuery(cq);
             if (!all) {
                 q.setMaxResults(maxResults);
@@ -164,10 +164,10 @@ public class PermisosJpaController implements Serializable {
         }
     }
 
-    public Permisos findPermisos(String id) {
+    public Permiso findPermisos(String id) {
         EntityManager em = getEntityManager();
         try {
-            return em.find(Permisos.class, id);
+            return em.find(Permiso.class, id);
         } finally {
             em.close();
         }
@@ -177,7 +177,7 @@ public class PermisosJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-            Root<Permisos> rt = cq.from(Permisos.class);
+            Root<Permiso> rt = cq.from(Permiso.class);
             cq.select(em.getCriteriaBuilder().count(rt));
             Query q = em.createQuery(cq);
             return ((Long) q.getSingleResult()).intValue();
